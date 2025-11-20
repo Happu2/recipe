@@ -730,3 +730,53 @@ footer {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-light);
 }
+/* Enhanced Error States */
+input.error-field, select.error-field, textarea.error-field {
+    border-color: var(--error-color) !important;
+    background: rgba(252, 129, 129, 0.05) !important;
+}
+
+.error {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: none;
+    animation: shake 0.5s ease-in-out;
+    background: rgba(252, 129, 129, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--error-color);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Loading States */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn:disabled:hover {
+    transform: none !important;
+    box-shadow: var(--shadow) !important;
+}
+
+/* Critical Error State */
+.critical-error {
+    background: var(--error-color) !important;
+    color: white !important;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.form-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

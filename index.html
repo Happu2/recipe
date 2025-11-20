@@ -141,6 +141,92 @@
             <p>Violet Recipe Manager &copy; 2023 | Made with 💜</p>
         </div>
     </footer>
+    <!-- Add/Edit Recipe View -->
+<div id="form-view" class="view" style="display: none;">
+    <div class="card form-card">
+        <div class="card-content">
+            <h2 id="form-title">Add New Recipe</h2>
+            
+            <!-- Critical Error Display -->
+            <div id="critical-error" class="critical-error" style="display: none;">
+                <h3>⚠️ System Error</h3>
+                <p>We're experiencing technical difficulties. Some features may be unavailable.</p>
+            </div>
+            
+            <form id="recipe-form">
+                <input type="hidden" id="recipe-id">
+                
+                <div class="form-group">
+                    <label for="title">Recipe Title *</label>
+                    <input type="text" id="title" required maxlength="100" 
+                           placeholder="Enter recipe title (2-100 characters)">
+                    <div class="error" id="title-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea id="description" required maxlength="500"
+                              placeholder="Describe your recipe (10-500 characters)"></textarea>
+                    <div class="error" id="description-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ingredients">Ingredients * (one per line)</label>
+                    <textarea id="ingredients" required 
+                              placeholder="List ingredients, one per line (max 50 ingredients)"></textarea>
+                    <div class="error" id="ingredients-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="steps">Steps * (one per line)</label>
+                    <textarea id="steps" required 
+                              placeholder="List preparation steps, one per line (max 100 steps)"></textarea>
+                    <div class="error" id="steps-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="prep-time">Prep Time (minutes) *</label>
+                    <input type="number" id="prep-time" min="0" max="1440" required 
+                           placeholder="0-1440 minutes">
+                    <div class="error" id="prep-time-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cook-time">Cook Time (minutes) *</label>
+                    <input type="number" id="cook-time" min="0" max="1440" required 
+                           placeholder="0-1440 minutes">
+                    <div class="error" id="cook-time-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Difficulty *</label>
+                    <select id="difficulty" required>
+                        <option value="">Select Difficulty</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <div class="error" id="difficulty-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image-url">Image URL (optional)</label>
+                    <input type="url" id="image-url" maxlength="500"
+                           placeholder="https://example.com/image.jpg">
+                    <div class="error" id="image-url-error"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <span class="btn-text">Save Recipe</span>
+                        <div class="btn-loading"></div>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>
