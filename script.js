@@ -75,7 +75,7 @@ const RecipeManager = {
                     prepTime: 15,
                     cookTime: 30,
                     difficulty: "easy",
-                    imageUrl: "https://images.unsplash.com/photo-1585937421612-70ca4e89e66a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    imageUrl: "https://cdn.indiaphile.info/wp-content/uploads/2023/02/stp-dal-chawal-7685.jpg?width=1600&crop_gravity=center&aspect_ratio=auto&q=75"
                 },
                 {
                     id: 'violet-velvet-cake',
