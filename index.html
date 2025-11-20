@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violet Recipe Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🍳</span>
+                    Violet Recipes
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" id="nav-home" class="nav-link active">Home</a></li>
+                        <li><a href="#" id="nav-add" class="nav-link">Add Recipe</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Home View -->
+        <div id="home-view" class="view active">
+            <div class="search-filter">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search recipes...">
+                </div>
+                <div class="filter-group">
+                    <select id="difficulty-filter">
+                        <option value="all">All Difficulties</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <select id="time-filter">
+                        <option value="0">Any Prep Time</option>
+                        <option value="15">Up to 15 min</option>
+                        <option value="30">Up to 30 min</option>
+                        <option value="60">Up to 1 hour</option>
+                        <option value="120">Up to 2 hours</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="recipe-list" class="recipe-grid">
+                <!-- Recipe cards will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Recipe Detail View -->
+        <div id="detail-view" class="view">
+            <div id="recipe-detail" class="recipe-detail">
+                <!-- Recipe details will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Add/Edit Recipe View -->
+        <div id="form-view" class="view">
+            <div class="card form-card">
+                <div class="card-content">
+                    <h2 id="form-title" class="form-title">Add New Recipe</h2>
+                    <form id="recipe-form">
+                        <input type="hidden" id="recipe-id">
+                        
+                        <div class="form-group">
+                            <label for="title">Recipe Title *</label>
+                            <input type="text" id="title" required>
+                            <div class="error" id="title-error">Title is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <textarea id="description" required></textarea>
+                            <div class="error" id="description-error">Description is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ingredients">Ingredients * (one per line)</label>
+                            <textarea id="ingredients" required></textarea>
+                            <div class="error" id="ingredients-error">At least one ingredient is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="steps">Steps * (one per line)</label>
+                            <textarea id="steps" required></textarea>
+                            <div class="error" id="steps-error">At least one step is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prep-time">Prep Time (minutes) *</label>
+                            <input type="number" id="prep-time" min="1" required>
+                            <div class="error" id="prep-time-error">Prep time must be at least 1 minute</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cook-time">Cook Time (minutes) *</label>
+                            <input type="number" id="cook-time" min="0" required>
+                            <div class="error" id="cook-time-error">Cook time is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="difficulty">Difficulty *</label>
+                            <select id="difficulty" required>
+                                <option value="">Select Difficulty</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                            <div class="error" id="difficulty-error">Please select a difficulty level</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image-url">Image URL (optional)</label>
+                            <input type="url" id="image-url">
+                            <div class="error" id="image-url-error">Please enter a valid URL</div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button type="submit" class="btn btn-primary" id="submit-btn">
+                                <span class="btn-text">Save Recipe</span>
+                                <div class="btn-loading"></div>
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Violet Recipe Manager &copy; 2023 | Made with 💜</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
