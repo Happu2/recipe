@@ -1,6 +1,5 @@
-// Modularized RecipeManager (ES module)
+
 export const RecipeManager = {
-    // Key for localStorage
     storageKey: 'recipes',
     
     // Initialize the application
@@ -294,7 +293,7 @@ export const RecipeManager = {
                 prepTime: 15,
                 cookTime: 30,
                 difficulty: "easy",
-                imageUrl: "https://images.unsplash.com/photo-1585937421612-70ca4e89e66a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                imageUrl: "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/03/instant-pot-dal-rice-recipe.jpg"
             },
             {
                 id: 'violet-velvet-cake',
@@ -327,6 +326,117 @@ export const RecipeManager = {
                 cookTime: 30,
                 difficulty: "medium",
                 imageUrl: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 'paneer-butter-masala',
+                title: "Paneer Butter Masala",
+                description: "Creamy tomato-based curry with pan-fried paneer cubes—rich, mildly spiced, and perfect with naan or rice.",
+                ingredients: [
+                    "300g paneer, cubed",
+                    "2 tbsp butter",
+                    "1 large onion, finely chopped",
+                    "3 tomatoes, pureed",
+                    "1 tbsp ginger-garlic paste",
+                    "1/2 cup heavy cream",
+                    "1 tsp garam masala",
+                    "1 tsp red chili powder",
+                    "1 tsp kasuri methi (dried fenugreek)",
+                    "Salt to taste",
+                    "Fresh coriander for garnish"
+                ],
+                steps: [
+                    "Heat butter in a pan and lightly fry paneer cubes until golden; set aside.",
+                    "Sauté onions until translucent, add ginger-garlic paste and cook for 1 minute.",
+                    "Add tomato puree, spices, and simmer 8-10 minutes until oil separates.",
+                    "Stir in cream and kasuri methi, then add paneer and simmer 5 minutes.",
+                    "Garnish with coriander and serve with naan or rice."
+                ],
+                prepTime: 20,
+                cookTime: 25,
+                difficulty: "medium",
+                imageUrl: "https://images.unsplash.com/photo-1604908177522-6b1c68b7a0b4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 'chicken-tikka-masala',
+                title: "Chicken Tikka Masala",
+                description: "Tender marinated chicken pieces in a spiced tomato-cream sauce—an all-time favorite.",
+                ingredients: [
+                    "500g boneless chicken, cubed",
+                    "1/2 cup yogurt",
+                    "1 tbsp tikka masala spice or garam masala",
+                    "2 tbsp oil",
+                    "1 onion, chopped",
+                    "2 tomatoes, pureed",
+                    "1/2 cup cream",
+                    "1 tbsp ginger-garlic paste",
+                    "Salt to taste",
+                    "Fresh cilantro for garnish"
+                ],
+                steps: [
+                    "Marinate chicken in yogurt and spices for at least 30 minutes or overnight.",
+                    "Sear or grill the marinated chicken until cooked through and set aside.",
+                    "Sauté onions, add ginger-garlic paste, then add tomato puree and simmer.",
+                    "Stir in cream, add the chicken, and simmer 8-10 minutes for flavors to meld.",
+                    "Garnish with cilantro and serve with rice or flatbread."
+                ],
+                prepTime: 30,
+                cookTime: 40,
+                difficulty: "medium",
+                imageUrl: "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 'veggie-quinoa-salad',
+                title: "Veggie Quinoa Salad",
+                description: "A light, protein-packed salad with quinoa, fresh vegetables, and a lemony dressing—great for meal prep.",
+                ingredients: [
+                    "1 cup quinoa, rinsed",
+                    "2 cups water or vegetable broth",
+                    "1 cucumber, diced",
+                    "1 bell pepper, diced",
+                    "1/2 red onion, finely chopped",
+                    "1 cup cherry tomatoes, halved",
+                    "1/4 cup chopped parsley",
+                    "Juice of 1 lemon",
+                    "2 tbsp olive oil",
+                    "Salt and pepper to taste"
+                ],
+                steps: [
+                    "Cook quinoa in water or broth according to package directions; let cool.",
+                    "Combine cooled quinoa with chopped vegetables and parsley.",
+                    "Whisk lemon juice, olive oil, salt, and pepper; toss with salad.",
+                    "Chill for 15 minutes before serving for best flavor."
+                ],
+                prepTime: 15,
+                cookTime: 15,
+                difficulty: "easy",
+                imageUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 'chocolate-banana-bread',
+                title: "Chocolate Banana Bread",
+                description: "Moist banana bread studded with chocolate chips—great for breakfast or snack time.",
+                ingredients: [
+                    "3 ripe bananas, mashed",
+                    "2 cups all-purpose flour",
+                    "1/2 cup brown sugar",
+                    "1/3 cup melted butter",
+                    "2 eggs",
+                    "1 tsp baking soda",
+                    "1/2 tsp salt",
+                    "1 cup chocolate chips",
+                    "1 tsp vanilla extract"
+                ],
+                steps: [
+                    "Preheat oven to 350°F (175°C) and grease a loaf pan.",
+                    "Mix mashed bananas, melted butter, sugar, eggs, and vanilla until combined.",
+                    "Stir in flour, baking soda, and salt until just combined; fold in chocolate chips.",
+                    "Pour batter into pan and bake 50-60 minutes or until a toothpick comes out clean.",
+                    "Cool before slicing and serve."
+                ],
+                prepTime: 15,
+                cookTime: 55,
+                difficulty: "easy",
+                imageUrl: "https://images.unsplash.com/photo-1601924582975-6f7acb0b3c2b?auto=format&fit=crop&w=600&q=80"
             }
         ];
     },
