@@ -19,6 +19,84 @@
     --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 }
 
+/* Light theme overrides — applied when `html` has class `light-theme` */
+html.light-theme {
+    --primary-color: #6B46C1;
+    --primary-dark: #5A3FB0;
+    --primary-light: #7C57D6;
+    --secondary-color: #D53F8C;
+    --accent-color: #0EA5A4;
+    --background-dark: #F7FAFC; /* used as background for light */
+    --background-darker: #EDF2F7;
+    --card-bg: #FFFFFF;
+    --card-hover: #F1F5F9;
+    --text-primary: #1A202C;
+    --text-secondary: #4A5568;
+    --text-muted: #718096;
+    --error-color: #E53E3E;
+    --success-color: #38A169;
+    --shadow: 0 6px 18px rgba(99, 102, 241, 0.06);
+    --shadow-hover: 0 10px 30px rgba(99, 102, 241, 0.08);
+    --gradient: linear-gradient(135deg, #7C57D6, #D53F8C);
+}
+
+/* Light-theme header overrides */
+html.light-theme header {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: none;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+html.light-theme .header-content,
+html.light-theme header,
+html.light-theme nav ul,
+html.light-theme .logo {
+    color: var(--text-primary);
+}
+
+/* Use solid text for the logo in light mode (better contrast) */
+html.light-theme .logo {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    background-clip: initial !important;
+    color: var(--text-primary) !important;
+}
+
+html.light-theme .logo-icon {
+    -webkit-text-fill-color: var(--primary-color) !important;
+}
+
+/* Nav links contrast on light theme */
+html.light-theme .nav-link {
+    color: var(--text-secondary);
+}
+
+html.light-theme .nav-link:hover,
+html.light-theme .nav-link.active {
+    color: var(--text-primary);
+}
+
+/* Ensure header buttons (theme toggle) look good */
+html.light-theme #theme-toggle {
+    color: var(--text-primary);
+}
+
+
+/* Theme toggle button specifics */
+#theme-toggle {
+    background: transparent;
+    border: 0;
+    font-size: 1.1rem;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+#theme-toggle.nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 * {
     margin: 0;
     padding: 0;
