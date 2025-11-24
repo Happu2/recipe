@@ -435,11 +435,9 @@ Value: JSON array of recipe objects
 
 - [ ] Export/Import recipes to JSON
 - [ ] Recipe categories and tags
-- [ ] Star rating system
 - [ ] Cooking timer
 - [ ] Shopping list generation
 - [ ] Print recipe view
-- [ ] Dark/light theme toggle
 - [ ] Recipe sharing (generate shareable links)
 - [ ] Nutritional information
 - [ ] Serving size calculator
