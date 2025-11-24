@@ -263,6 +263,7 @@ export const RecipeManager = {
                 id: 'classic-dal-rice',
                 title: "Classic Dal & Rice",
                 description: "A comforting and nutritious Indian lentil dish served with fluffy basmati rice.",
+                rating: 4,
                 ingredients: [
                     "1 cup yellow lentils (toor dal)",
                     "1/2 cup basmati rice",
@@ -299,6 +300,7 @@ export const RecipeManager = {
                 id: 'violet-velvet-cake',
                 title: "Violet Velvet Cake",
                 description: "A stunning purple velvet cake with cream cheese frosting.",
+                rating: 4.5,
                 ingredients: [
                     "2 ½ cups all-purpose flour",
                     "1 ½ cups granulated sugar",
@@ -331,6 +333,7 @@ export const RecipeManager = {
                 id: 'paneer-butter-masala',
                 title: "Paneer Butter Masala",
                 description: "Creamy tomato-based curry with pan-fried paneer cubes—rich, mildly spiced, and perfect with naan or rice.",
+                rating: 4.5,
                 ingredients: [
                     "300g paneer, cubed",
                     "2 tbsp butter",
@@ -361,6 +364,7 @@ export const RecipeManager = {
                 id: 'chocolate-banana-bread',
                 title: "Chocolate Banana Bread",
                 description: "Moist banana bread studded with chocolate chips—great for breakfast or snack time.",
+                rating: 5,
                 ingredients: [
                     "3 ripe bananas, mashed",
                     "2 cups all-purpose flour",
@@ -510,8 +514,32 @@ export const RecipeManager = {
             prepTime: Math.max(0, Math.min(1440, parseInt(recipe.prepTime) || 0)),
             cookTime: Math.max(0, Math.min(1440, parseInt(recipe.cookTime) || 0)),
             difficulty: ['easy', 'medium', 'hard'].includes(recipe.difficulty) ? recipe.difficulty : 'easy',
-            imageUrl: (recipe.imageUrl || '').slice(0, 500)
+            imageUrl: (recipe.imageUrl || '').slice(0, 500),
+            rating: this.normalizeRating(
+                typeof recipe.rating === 'number' ? recipe.rating : parseFloat(recipe.rating) || 0
+            )
         };
+    },
+    
+    // Normalize rating values to 0 - 5 with half-star precision
+    normalizeRating: function(value) {
+        if (isNaN(value)) return 0;
+        return Math.max(0, Math.min(5, Math.round(value * 2) / 2));
+    },
+    
+    // Persist rating changes for a recipe
+    persistRating: function(recipeId, rating) {
+        try {
+            const recipes = this.getRecipes();
+            const recipeIndex = recipes.findIndex(r => r.id === recipeId);
+            if (recipeIndex === -1) return;
+            
+            recipes[recipeIndex].rating = this.normalizeRating(rating);
+            this.saveRecipes(recipes);
+        } catch (error) {
+            console.error('Error saving rating:', error);
+            this.showNotification('Unable to save rating. Please try again.', 'error');
+        }
     },
     
     // Show notification with error handling
@@ -666,6 +694,7 @@ export const RecipeManager = {
                                     ${this.escapeHtml((recipe.difficulty || 'easy').charAt(0).toUpperCase() + (recipe.difficulty || 'easy').slice(1))}
                                 </span>
                             </div>
+                            ${this.renderCardRating(recipe)}
                             <p>${this.escapeHtml(recipe.description || '')}</p>
                             <button class="btn btn-primary view-recipe" data-id="${this.escapeHtml(recipe.id)}">View Recipe</button>
                         </div>
@@ -724,6 +753,129 @@ export const RecipeManager = {
         }
     },
     
+    // Build rating section markup
+    renderRatingSection: function(recipe) {
+        const rating = this.normalizeRating(recipe.rating || 0);
+        const starButtons = Array.from({ length: 5 }, (_, index) => {
+            const starNumber = index + 1;
+            const label = `Rate ${starNumber} ${starNumber === 1 ? 'star' : 'stars'}`;
+            return `<button type="button" class="rating-star" data-star="${starNumber}" aria-label="${label}"></button>`;
+        }).join('');
+        
+        const ratingText = rating > 0 ? `Your rating: ${rating.toFixed(1)} / 5` : 'No rating yet';
+        
+        return `
+            <div class="rating-section" aria-live="polite">
+                <div class="rating-stars" id="rating-stars" role="slider" aria-label="Recipe rating" aria-valuemin="0" aria-valuemax="5" aria-valuenow="${rating}">
+                    ${starButtons}
+                </div>
+                <div class="rating-value" id="rating-value">${ratingText}</div>
+            </div>
+        `;
+    },
+    
+    // Render rating summary for cards
+    renderCardRating: function(recipe) {
+        const rating = this.normalizeRating(recipe.rating || 0);
+        const stars = this.buildStaticStars(rating);
+        const text = rating ? `${rating.toFixed(1)}/5` : 'No rating';
+        
+        return `
+            <div class="card-rating" aria-label="Recipe rating ${rating || 0} out of 5">
+                <div class="card-rating-stars">
+                    ${stars}
+                </div>
+                <span class="card-rating-value">${text}</span>
+            </div>
+        `;
+    },
+    
+    // Activate star rating interactions
+    initRatingInteraction: function(recipe) {
+        const starWrapper = document.getElementById('rating-stars');
+        const ratingValue = document.getElementById('rating-value');
+        if (!starWrapper || !ratingValue) return;
+        
+        const stars = Array.from(starWrapper.querySelectorAll('.rating-star'));
+        let currentRating = this.normalizeRating(recipe.rating || 0);
+        const formatText = (rating, preview = false) => {
+            if (!rating) return preview ? '0.0 / 5' : 'No rating yet';
+            return `${preview ? '' : 'Your rating: '}${rating.toFixed(1)} / 5`;
+        };
+        
+        const updateDisplay = (rating, options = {}) => {
+            const { preview = false } = options;
+            
+            stars.forEach((star, index) => {
+                const starValue = index + 1;
+                star.classList.remove('full', 'half', 'empty');
+                
+                if (rating >= starValue) {
+                    star.classList.add('full');
+                } else if (rating + 0.5 >= starValue) {
+                    star.classList.add('half');
+                } else {
+                    star.classList.add('empty');
+                }
+            });
+            
+            ratingValue.textContent = formatText(rating, preview);
+            ratingValue.classList.toggle('rating-preview', preview);
+            starWrapper.setAttribute('aria-valuenow', rating);
+        };
+        
+        const computeRatingFromEvent = (star, evt) => {
+            if (!star) return currentRating;
+            const starValue = parseInt(star.getAttribute('data-star'), 10);
+            if (!evt) return starValue;
+            
+            const rect = star.getBoundingClientRect();
+            const isLeftHalf = (evt.clientX - rect.left) <= rect.width / 2;
+            const rawRating = isLeftHalf ? starValue - 0.5 : starValue;
+            return this.normalizeRating(rawRating);
+        };
+        
+        updateDisplay(currentRating);
+        
+        starWrapper.addEventListener('pointermove', (evt) => {
+            const targetStar = evt.target.closest('.rating-star');
+            if (!targetStar) return;
+            const hoverRating = computeRatingFromEvent(targetStar, evt);
+            updateDisplay(hoverRating, { preview: true });
+        });
+        
+        starWrapper.addEventListener('pointerleave', () => {
+            updateDisplay(currentRating);
+        });
+        
+        starWrapper.addEventListener('pointerdown', (evt) => {
+            const targetStar = evt.target.closest('.rating-star');
+            if (!targetStar) return;
+            evt.preventDefault();
+            const newRating = computeRatingFromEvent(targetStar, evt);
+            currentRating = newRating;
+            recipe.rating = newRating;
+            updateDisplay(currentRating);
+            this.persistRating(recipe.id, currentRating);
+        });
+    },
+    
+    // Build static stars for card display
+    buildStaticStars: function(rating) {
+        return Array.from({ length: 5 }, (_, index) => {
+            const starValue = index + 1;
+            const state = this.getStarState(rating, starValue);
+            return `<span class="static-star ${state}" aria-hidden="true"></span>`;
+        }).join('');
+    },
+    
+    // Determine star state (full, half, empty)
+    getStarState: function(rating, starValue) {
+        if (rating >= starValue) return 'full';
+        if (rating + 0.5 >= starValue) return 'half';
+        return 'empty';
+    },
+    
     // Show recipe detail view with error handling
     showRecipeDetail: function(recipeId) {
         try {
@@ -772,6 +924,8 @@ export const RecipeManager = {
                         </div>
                     </div>
                     
+                    ${this.renderRatingSection(recipe)}
+                    
                     <div class="recipe-section">
                         <h2 class="section-title">Ingredients</h2>
                         <ul class="ingredients-list">
@@ -797,6 +951,8 @@ export const RecipeManager = {
                     </div>
                 </div>
             `;
+            
+            this.initRatingInteraction(recipe);
             
             // Add event listeners
             document.getElementById('edit-recipe').addEventListener('click', (e) => {
@@ -957,6 +1113,9 @@ export const RecipeManager = {
             const recipes = this.getRecipes();
             const existingIndex = recipes.findIndex(r => r.id === recipeData.id);
             const isEdit = existingIndex !== -1;
+            recipeData.rating = isEdit 
+                ? this.normalizeRating(recipes[existingIndex].rating || 0)
+                : 0;
             
             if (isEdit) {
                 recipes[existingIndex] = recipeData;
